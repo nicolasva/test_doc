@@ -1,6 +1,5 @@
 class AvailableService
-  def initialize(event, date)
-    @event = event
+  def initialize(date)
     @date = date
     @days = date..(date + 6.days)
     @range_open = Event.range_open(@days)

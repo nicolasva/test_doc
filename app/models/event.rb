@@ -14,7 +14,7 @@ class Event < ApplicationRecord
   }
 
   def self.availabilities(date)
-    availabilities = AvailableService.new(self, date)
+    availabilities = AvailableService.new(date)
     availabilities.call
   end
 end
