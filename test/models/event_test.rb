@@ -6,8 +6,8 @@ class EventTest < ActiveSupport::TestCase
   # end
   test 'many opens' do
     Event.create kind: 'opening',
-                 starts_at: DateTime.parse('2014-08-04 14:00').in_time_zone,
-                 ends_at: DateTime.parse('2014-08-04 15:30').in_time_zone,
+                 starts_at: DateTime.parse('2014-08-04 13:00').in_time_zone,
+                 ends_at: DateTime.parse('2014-08-04 18:30').in_time_zone,
                  weekly_recurring: true
 
     availabilities = Event.availabilities DateTime.parse('2014-08-10')
@@ -15,15 +15,15 @@ class EventTest < ActiveSupport::TestCase
     assert_equal Date.new(2014, 8, 10), availabilities[0][:date]
     assert_equal [], availabilities[0][:slots]
     assert_equal Date.new(2014, 8, 11), availabilities[1][:date]
-    assert_equal ['14:00', '14:30', '15:00'], availabilities[1][:slots]
+    assert_equal ['13:00', '13:30','14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00'], availabilities[1][:slots]
     assert_equal Date.new(2014, 8, 16), availabilities[6][:date]
     assert_equal 7, availabilities.length
   end
 
   test 'many rdvs' do
     Event.create kind: 'opening',
-                 starts_at: DateTime.parse('2014-08-04 14:00').in_time_zone,
-                 ends_at: DateTime.parse('2014-08-04 17:30').in_time_zone,
+                 starts_at: DateTime.parse('2014-08-04 10:00').in_time_zone,
+                 ends_at: DateTime.parse('2014-08-04 18:30').in_time_zone,
                  weekly_recurring: true
 
     Event.create kind: 'appointment',
@@ -36,7 +36,7 @@ class EventTest < ActiveSupport::TestCase
     assert_equal [], availabilities[0][:slots]
     assert_equal Date.new(2014, 8, 11), availabilities[1][:date]
 
-    expected_slots = ['14:00', '14:30', '15:00', '16:30', '17:00']
+    expected_slots = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '16:30', '17:00', '17:30', '18:00']
     assert_equal expected_slots, availabilities[1][:slots]
     assert_equal Date.new(2014, 8, 16), availabilities[6][:date]
     assert_equal 7, availabilities.length
