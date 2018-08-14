@@ -1,5 +1,6 @@
 class AvailableService
   def initialize(date)
+    Time::DATE_FORMATS[:short_time] = '%-k:%M'
     @date = date
     @days = date..(date + 6.days)
     @range_open = Event.range_open(@days)
