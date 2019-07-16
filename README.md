@@ -1,3 +1,7 @@
+#my github
+You can find the on my github : 
+https://github.com/nicolasva/test_doc
+
 # README
 
 rake db:create
